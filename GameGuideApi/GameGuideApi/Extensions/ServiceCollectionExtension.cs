@@ -1,3 +1,5 @@
+using GameGuide.Core.Contracts;
+using GameGuide.Core.Services;
 using GameGuide.Data;
 using GameGuide.Data.Common;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +18,13 @@ public static class ServiceCollectionExtension
         
         services.AddScoped<IRepository, Repository>();
         
+        
+        return services;
+    }
+
+    public static IServiceCollection AttachService(this IServiceCollection services)
+    {
+        services.AddScoped<IGameService, GameService>();
         
         return services;
     }

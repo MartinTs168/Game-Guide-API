@@ -76,4 +76,16 @@ public class GameService : IGameService
         
         return null;
     }
+
+    public async Task<int> DeleteGameAsync(int id)
+    {
+        var game = await _repository.GetByIdAsync<Game>(id);
+
+        if (game == null) return -1;
+
+        await _repository.DeleteAsync(game);
+        await _repository.SaveChangesAsync<Game>();
+
+        return 0;
+    }
 }

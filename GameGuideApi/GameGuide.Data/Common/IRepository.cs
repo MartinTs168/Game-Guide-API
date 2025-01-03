@@ -12,5 +12,5 @@ public interface IRepository
     
     Task AddAsync<T>(T entity) where T : class;
     
-    Task DeleteAsync<T> (object id) where T : class;
+    Task DeleteAsync<T> (T? entity) where T : class;
 }

@@ -12,4 +12,6 @@ public interface IGameService
     Task CreateGameAsync(Game game);
 
     Task<GameDto?> EditGameAsync(int id, CreateGameDto game);
+
+    Task<int> DeleteGameAsync(int id);
 }

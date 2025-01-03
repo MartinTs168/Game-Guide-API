@@ -63,6 +63,7 @@ public class GameController : ControllerBase
 
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Edit(int id, [FromBody] CreateGameDto? gameDto)
     {
         if (gameDto == null || id != gameDto.Id)
@@ -84,5 +85,20 @@ public class GameController : ControllerBase
 
         return Ok(res);
 
+    }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var res = await _gameService.DeleteGameAsync(id);
+
+        if (res == -1)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
     }
 }

@@ -16,7 +16,7 @@ public class GameController : ControllerBase
         _gameService = gameService;
     }
     
-    [HttpGet("/all")]
+    [HttpGet("all")]
     public async Task<IActionResult> All()
     {
         var games = await _gameService.AllGamesAsync();

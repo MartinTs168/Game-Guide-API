@@ -1,7 +1,6 @@
 using GameGuide.Core.Contracts;
 using GameGuide.Core.Models;
 using GameGuide.Data.Entities;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameGuideApi.Controllers;
@@ -59,8 +58,31 @@ public class GameController : ControllerBase
         await _gameService.CreateGameAsync(newGame);
 
         return CreatedAtAction(nameof(GetById), new { id = newGame.Id }, newGame);
+        
+    }
 
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Edit(int id, [FromBody] CreateGameDto? gameDto)
+    {
+        if (gameDto == null || id != gameDto.Id)
+        {
+            return BadRequest();
+        }
+        
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
 
+        var res = await _gameService.EditGameAsync(id, gameDto);
+
+        if (res == null)
+        {
+            return NotFound(); 
+        }
+
+        return Ok(res);
 
     }
 }

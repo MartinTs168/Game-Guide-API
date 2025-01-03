@@ -26,7 +26,7 @@ public class Repository : IRepository
         return DbSet<T>().AsNoTracking();
     }
 
-    public async Task<T?> GetGetByIdAsync<T>(object id) where T : class
+    public async Task<T?> GetByIdAsync<T>(object id) where T : class
     {
         return await DbSet<T>().FindAsync(id);
     }
@@ -43,7 +43,7 @@ public class Repository : IRepository
 
     public async Task DeleteAsync<T>(object id) where T : class
     {
-        T? entity = await GetGetByIdAsync<T>(id);
+        T? entity = await GetByIdAsync<T>(id);
 
         if (entity != null)
         {

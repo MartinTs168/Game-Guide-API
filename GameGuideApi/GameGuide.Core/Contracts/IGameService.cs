@@ -10,4 +10,6 @@ public interface IGameService
     Task<GameDto?> GetGameByIdAsync(int id);
 
     Task CreateGameAsync(Game game);
+
+    Task<GameDto?> EditGameAsync(int id, CreateGameDto game);
 }

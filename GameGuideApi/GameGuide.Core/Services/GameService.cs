@@ -28,7 +28,7 @@ public class GameService : IGameService
 
     public async Task<GameDto?> GetGameByIdAsync(int id)
     {
-        var game = await _repository.GetGetByIdAsync<Game>(id);
+        var game = await _repository.GetByIdAsync<Game>(id);
 
         if (game == null)
         {
@@ -54,5 +54,26 @@ public class GameService : IGameService
         {
         }
         
+    }
+
+    public async Task<GameDto?> EditGameAsync(int id, CreateGameDto game)
+    {
+        var currGame = await _repository.GetByIdAsync<Game>(id);
+
+        if (currGame != null)
+        {
+            
+            currGame.Title = game.Title;
+            await _repository.SaveChangesAsync<Game>();
+            
+            return new GameDto
+            {
+                Id = currGame.Id,
+                Title = currGame.Title
+            };
+
+        }
+        
+        return null;
     }
 }
